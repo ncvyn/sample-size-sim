@@ -173,7 +173,7 @@
             Controls.Add(groupBox1);
             MaximizeBox = false;
             Name = "Form1";
-            Text = "Form1";
+            Text = "Sample Size Simulator";
             Load += Form1_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
