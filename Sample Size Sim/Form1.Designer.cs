@@ -41,9 +41,16 @@
             FGroup = new GroupBox();
             CochranButton = new RadioButton();
             SlovinButton = new RadioButton();
+            groupBox1 = new GroupBox();
+            label1 = new Label();
+            comboBox1 = new ComboBox();
+            radioButton1 = new RadioButton();
+            textBox2 = new TextBox();
+            radioButton2 = new RadioButton();
             PSGroup.SuspendLayout();
             MEGroup.SuspendLayout();
             FGroup.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // PSTextBox
@@ -186,10 +193,10 @@
             CochranButton.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             CochranButton.Location = new Point(11, 64);
             CochranButton.Name = "CochranButton";
-            CochranButton.Size = new Size(78, 19);
+            CochranButton.Size = new Size(70, 19);
             CochranButton.TabIndex = 3;
             CochranButton.TabStop = true;
-            CochranButton.Text = "Cochran's";
+            CochranButton.Text = "Cochran";
             CochranButton.UseVisualStyleBackColor = true;
             CochranButton.CheckedChanged += CochranButton_CheckedChanged;
             // 
@@ -199,11 +206,80 @@
             SlovinButton.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             SlovinButton.Location = new Point(11, 32);
             SlovinButton.Name = "SlovinButton";
-            SlovinButton.Size = new Size(65, 19);
+            SlovinButton.Size = new Size(57, 19);
             SlovinButton.TabIndex = 1;
-            SlovinButton.Text = "Slovin's";
+            SlovinButton.Text = "Slovin";
             SlovinButton.UseVisualStyleBackColor = true;
             SlovinButton.CheckedChanged += SlovinButton_CheckedChanged;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(label1);
+            groupBox1.Controls.Add(comboBox1);
+            groupBox1.Controls.Add(radioButton1);
+            groupBox1.Controls.Add(textBox2);
+            groupBox1.Controls.Add(radioButton2);
+            groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox1.Location = new Point(417, 38);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(110, 103);
+            groupBox1.TabIndex = 5;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Z Score";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(59, 30);
+            label1.Name = "label1";
+            label1.Size = new Size(17, 15);
+            label1.TabIndex = 4;
+            label1.Text = "%";
+            label1.TextAlign = ContentAlignment.TopRight;
+            // 
+            // comboBox1
+            // 
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "2%", "5%", "10%" });
+            comboBox1.Location = new Point(30, 63);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(46, 23);
+            comboBox1.TabIndex = 4;
+            // 
+            // radioButton1
+            // 
+            radioButton1.AutoSize = true;
+            radioButton1.Checked = true;
+            radioButton1.Location = new Point(11, 67);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(14, 13);
+            radioButton1.TabIndex = 3;
+            radioButton1.TabStop = true;
+            radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // textBox2
+            // 
+            textBox2.BackColor = SystemColors.Window;
+            textBox2.Enabled = false;
+            textBox2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox2.Location = new Point(30, 27);
+            textBox2.MaxLength = 3;
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(31, 23);
+            textBox2.TabIndex = 0;
+            textBox2.TextAlign = HorizontalAlignment.Right;
+            // 
+            // radioButton2
+            // 
+            radioButton2.AutoSize = true;
+            radioButton2.Location = new Point(11, 32);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(14, 13);
+            radioButton2.TabIndex = 1;
+            radioButton2.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -211,19 +287,21 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(784, 561);
+            Controls.Add(groupBox1);
             Controls.Add(FGroup);
             Controls.Add(MEGroup);
             Controls.Add(PSGroup);
             MaximizeBox = false;
             Name = "Form1";
             Text = "Sample Size Simulator";
-            Load += Form1_Load;
             PSGroup.ResumeLayout(false);
             PSGroup.PerformLayout();
             MEGroup.ResumeLayout(false);
             MEGroup.PerformLayout();
             FGroup.ResumeLayout(false);
             FGroup.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -243,5 +321,11 @@
         private RadioButton CochranButton;
         private TextBox textBox1;
         private RadioButton SlovinButton;
+        private GroupBox groupBox1;
+        private Label label1;
+        private ComboBox comboBox1;
+        private RadioButton radioButton1;
+        private TextBox textBox2;
+        private RadioButton radioButton2;
     }
 }

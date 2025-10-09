@@ -5,87 +5,54 @@ namespace Sample_Size_Sim
 {
     public partial class Form1 : Form
     {
-        public class Formula
-        {
-            public static FormulaOption Cochran { get; } = new FormulaOption("Cochran");
-            public static FormulaOption Slovin { get; } = new FormulaOption("Slovin");
-        }
-        public class FormulaOption(string text)
-        {
-            public string Text { get; } = text;
-        }
-
-        FormulaOption formula = Formula.Cochran;
+        private enum Formula { Cochran, Slovin }
+        Formula formula = Formula.Cochran;
 
         public Form1()
         {
             InitializeComponent();
+            MEComboBox.SelectedIndex = 1;
         }
 
-        private void PSTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Allow control keys and digits
-            if (char.IsControl(e.KeyChar) || char.IsDigit(e.KeyChar))
-            {
-                return;
-            }
-
-            // Disallow anything else
-            e.Handled = true;
-        }
-
-        private void PSButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            this.PSTextBox.Enabled = this.PSButton1.Checked;
-        }
-
-        private void MEButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            this.METextBox.Enabled = this.MEButton1.Checked;
-        }
-
-        private void MEButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            this.MEComboBox.Enabled = this.MEButton2.Checked;
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            this.MEComboBox.SelectedIndex = 1;
-        }
-
-        private void METextBox_KeyPress(object sender, KeyPressEventArgs e)
+        private static bool ShouldBlockKeyPress(object sender, KeyPressEventArgs e)
         {
             String text = ((TextBox)sender).Text;
 
-            // Allow control keys and digits...
             if (char.IsControl(e.KeyChar) || char.IsDigit(e.KeyChar))
             {
-                return;
+                return false;
             }
-            // ...and a single period (.)
             if (e.KeyChar == '.' && !(text.Contains('.')))
             {
-                return;
+                return false;
             }
 
-            // Disallow anything else
-            e.Handled = true;
+            return true;
         }
 
-        private void SetFormula(FormulaOption option)
+        private void PSTextBox_KeyPress(object sender, KeyPressEventArgs e) => e.Handled = ShouldBlockKeyPress(sender, e);
+
+        private void PSButton1_CheckedChanged(object sender, EventArgs e) => PSTextBox.Enabled = PSButton1.Checked;
+        private void MEButton1_CheckedChanged(object sender, EventArgs e) => METextBox.Enabled = MEButton1.Checked;
+        private void MEButton2_CheckedChanged(object sender, EventArgs e) => MEComboBox.Enabled = MEButton2.Checked;
+        
+        private void METextBox_KeyPress(object sender, KeyPressEventArgs e) => e.Handled = ShouldBlockKeyPress(sender, e);
+
+        private void SetFormula(Formula option)
         {
             formula = option;
         }
 
         private void SlovinButton_CheckedChanged(object sender, EventArgs e)
         {
-            SetFormula(Formula.Slovin);
+            Formula f = this.SlovinButton.Checked ? Formula.Slovin : Formula.Cochran;
+            SetFormula(f);
         }
 
         private void CochranButton_CheckedChanged(object sender, EventArgs e)
         {
-            SetFormula(Formula.Cochran);
+            Formula f = this.CochranButton.Checked ? Formula.Cochran : Formula.Slovin;
+            SetFormula(f);
         }
     }
 }
