@@ -30,21 +30,26 @@
         {
             PSTextBox = new TextBox();
             PSButton1 = new RadioButton();
-            groupBox1 = new GroupBox();
+            PSGroup = new GroupBox();
             PSButton2 = new RadioButton();
-            groupBox2 = new GroupBox();
+            MEGroup = new GroupBox();
             PercentLabel = new Label();
             MEComboBox = new ComboBox();
             MEButton2 = new RadioButton();
             METextBox = new TextBox();
             MEButton1 = new RadioButton();
-            groupBox1.SuspendLayout();
-            groupBox2.SuspendLayout();
+            FGroup = new GroupBox();
+            CochranButton = new RadioButton();
+            SlovinButton = new RadioButton();
+            PSGroup.SuspendLayout();
+            MEGroup.SuspendLayout();
+            FGroup.SuspendLayout();
             SuspendLayout();
             // 
             // PSTextBox
             // 
             PSTextBox.BackColor = SystemColors.Window;
+            PSTextBox.Enabled = false;
             PSTextBox.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             PSTextBox.Location = new Point(30, 27);
             PSTextBox.MaxLength = 5;
@@ -57,31 +62,30 @@
             // PSButton1
             // 
             PSButton1.AutoSize = true;
-            PSButton1.Checked = true;
             PSButton1.Location = new Point(11, 32);
             PSButton1.Name = "PSButton1";
             PSButton1.Size = new Size(14, 13);
             PSButton1.TabIndex = 1;
-            PSButton1.TabStop = true;
             PSButton1.UseVisualStyleBackColor = true;
             PSButton1.CheckedChanged += PSButton1_CheckedChanged;
             // 
-            // groupBox1
+            // PSGroup
             // 
-            groupBox1.Controls.Add(PSButton2);
-            groupBox1.Controls.Add(PSTextBox);
-            groupBox1.Controls.Add(PSButton1);
-            groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox1.Location = new Point(37, 38);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(110, 103);
-            groupBox1.TabIndex = 2;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Population Size";
+            PSGroup.Controls.Add(PSButton2);
+            PSGroup.Controls.Add(PSTextBox);
+            PSGroup.Controls.Add(PSButton1);
+            PSGroup.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            PSGroup.Location = new Point(163, 38);
+            PSGroup.Name = "PSGroup";
+            PSGroup.Size = new Size(110, 103);
+            PSGroup.TabIndex = 2;
+            PSGroup.TabStop = false;
+            PSGroup.Text = "Population Size";
             // 
             // PSButton2
             // 
             PSButton2.AutoSize = true;
+            PSButton2.Checked = true;
             PSButton2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             PSButton2.Location = new Point(11, 64);
             PSButton2.Name = "PSButton2";
@@ -91,20 +95,20 @@
             PSButton2.Text = "Infinite";
             PSButton2.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
+            // MEGroup
             // 
-            groupBox2.Controls.Add(PercentLabel);
-            groupBox2.Controls.Add(MEComboBox);
-            groupBox2.Controls.Add(MEButton2);
-            groupBox2.Controls.Add(METextBox);
-            groupBox2.Controls.Add(MEButton1);
-            groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox2.Location = new Point(163, 38);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(110, 103);
-            groupBox2.TabIndex = 3;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Margin of Error";
+            MEGroup.Controls.Add(PercentLabel);
+            MEGroup.Controls.Add(MEComboBox);
+            MEGroup.Controls.Add(MEButton2);
+            MEGroup.Controls.Add(METextBox);
+            MEGroup.Controls.Add(MEButton1);
+            MEGroup.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            MEGroup.Location = new Point(289, 38);
+            MEGroup.Name = "MEGroup";
+            MEGroup.Size = new Size(110, 103);
+            MEGroup.TabIndex = 3;
+            MEGroup.TabStop = false;
+            MEGroup.Text = "Margin of Error";
             // 
             // PercentLabel
             // 
@@ -163,22 +167,63 @@
             MEButton1.UseVisualStyleBackColor = true;
             MEButton1.CheckedChanged += MEButton1_CheckedChanged;
             // 
+            // FGroup
+            // 
+            FGroup.Controls.Add(CochranButton);
+            FGroup.Controls.Add(SlovinButton);
+            FGroup.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            FGroup.Location = new Point(37, 38);
+            FGroup.Name = "FGroup";
+            FGroup.Size = new Size(110, 103);
+            FGroup.TabIndex = 4;
+            FGroup.TabStop = false;
+            FGroup.Text = "Formula";
+            // 
+            // CochranButton
+            // 
+            CochranButton.AutoSize = true;
+            CochranButton.Checked = true;
+            CochranButton.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            CochranButton.Location = new Point(11, 64);
+            CochranButton.Name = "CochranButton";
+            CochranButton.Size = new Size(78, 19);
+            CochranButton.TabIndex = 3;
+            CochranButton.TabStop = true;
+            CochranButton.Text = "Cochran's";
+            CochranButton.UseVisualStyleBackColor = true;
+            CochranButton.CheckedChanged += CochranButton_CheckedChanged;
+            // 
+            // SlovinButton
+            // 
+            SlovinButton.AutoSize = true;
+            SlovinButton.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SlovinButton.Location = new Point(11, 32);
+            SlovinButton.Name = "SlovinButton";
+            SlovinButton.Size = new Size(65, 19);
+            SlovinButton.TabIndex = 1;
+            SlovinButton.Text = "Slovin's";
+            SlovinButton.UseVisualStyleBackColor = true;
+            SlovinButton.CheckedChanged += SlovinButton_CheckedChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(784, 561);
-            Controls.Add(groupBox2);
-            Controls.Add(groupBox1);
+            Controls.Add(FGroup);
+            Controls.Add(MEGroup);
+            Controls.Add(PSGroup);
             MaximizeBox = false;
             Name = "Form1";
             Text = "Sample Size Simulator";
             Load += Form1_Load;
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
+            PSGroup.ResumeLayout(false);
+            PSGroup.PerformLayout();
+            MEGroup.ResumeLayout(false);
+            MEGroup.PerformLayout();
+            FGroup.ResumeLayout(false);
+            FGroup.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -186,13 +231,17 @@
 
         private TextBox PSTextBox;
         private RadioButton PSButton1;
-        private GroupBox groupBox1;
+        private GroupBox PSGroup;
         private RadioButton PSButton2;
-        private GroupBox groupBox2;
+        private GroupBox MEGroup;
         private RadioButton MEButton2;
         private RadioButton MEButton1;
         private ComboBox MEComboBox;
         private TextBox METextBox;
         private Label PercentLabel;
+        private GroupBox FGroup;
+        private RadioButton CochranButton;
+        private TextBox textBox1;
+        private RadioButton SlovinButton;
     }
 }

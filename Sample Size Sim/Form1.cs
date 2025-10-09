@@ -1,7 +1,22 @@
+using System;
+using System.Windows.Forms;
+
 namespace Sample_Size_Sim
 {
     public partial class Form1 : Form
     {
+        public class Formula
+        {
+            public static FormulaOption Cochran { get; } = new FormulaOption("Cochran");
+            public static FormulaOption Slovin { get; } = new FormulaOption("Slovin");
+        }
+        public class FormulaOption(string text)
+        {
+            public string Text { get; } = text;
+        }
+
+        FormulaOption formula = Formula.Cochran;
+
         public Form1()
         {
             InitializeComponent();
@@ -56,6 +71,21 @@ namespace Sample_Size_Sim
 
             // Disallow anything else
             e.Handled = true;
+        }
+
+        private void SetFormula(FormulaOption option)
+        {
+            formula = option;
+        }
+
+        private void SlovinButton_CheckedChanged(object sender, EventArgs e)
+        {
+            SetFormula(Formula.Slovin);
+        }
+
+        private void CochranButton_CheckedChanged(object sender, EventArgs e)
+        {
+            SetFormula(Formula.Cochran);
         }
     }
 }
