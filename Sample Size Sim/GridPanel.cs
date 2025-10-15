@@ -1,9 +1,4 @@
-using System;
-using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Sample_Size_Sim
 {
@@ -79,14 +74,14 @@ namespace Sample_Size_Sim
 
         // Change a single circle's fill color without triggering a repaint.
         // Call Invalidate()/Refresh() externally once all updates are applied.
-        public void ChangeCircleColor(int row, int col, Color color)
+        public void SetCircleColor(int row, int col, Color color)
         {
             if (row < 0 || row >= rows) throw new ArgumentOutOfRangeException(nameof(row));
             if (col < 0 || col >= cols) throw new ArgumentOutOfRangeException(nameof(col));
 
             if (InvokeRequired)
             {
-                Invoke(new Action(() => ChangeCircleColor(row, col, color)));
+                Invoke(new Action(() => SetCircleColor(row, col, color)));
                 return;
             }
 
@@ -96,14 +91,14 @@ namespace Sample_Size_Sim
         }
 
         // Change a single circle's stroke (outline) color without triggering a repaint.
-        public void ChangeCircleStrokeColor(int row, int col, Color color)
+        public void SetCircleStrokeColor(int row, int col, Color color)
         {
             if (row < 0 || row >= rows) throw new ArgumentOutOfRangeException(nameof(row));
             if (col < 0 || col >= cols) throw new ArgumentOutOfRangeException(nameof(col));
 
             if (InvokeRequired)
             {
-                Invoke(new Action(() => ChangeCircleStrokeColor(row, col, color)));
+                Invoke(new Action(() => SetCircleStrokeColor(row, col, color)));
                 return;
             }
 
@@ -116,15 +111,14 @@ namespace Sample_Size_Sim
         /// </summary>
         /// <param name="row">Row index of the cell (0-based).</param>
         /// <param name="col">Column index of the cell (0-based).</param>
-        /// <param name="refresh">If true, calls <see cref="Refresh"/> after invalidation to force synchronous repaint.</param>
-        public void InvalidateCell(int row, int col, bool refresh = false)
+        public void InvalidateCell(int row, int col)
         {
             if (row < 0 || row >= rows) throw new ArgumentOutOfRangeException(nameof(row));
             if (col < 0 || col >= cols) throw new ArgumentOutOfRangeException(nameof(col));
 
             if (InvokeRequired)
             {
-                Invoke(new Action(() => InvalidateCell(row, col, refresh)));
+                Invoke(new Action(() => InvalidateCell(row, col)));
                 return;
             }
 
@@ -132,7 +126,6 @@ namespace Sample_Size_Sim
             {
                 // Nothing meaningful to compute; invalidate whole control
                 Invalidate();
-                if (refresh) Refresh();
                 return;
             }
 
@@ -142,7 +135,6 @@ namespace Sample_Size_Sim
             if (cellW <= 0 || cellH <= 0)
             {
                 Invalidate();
-                if (refresh) Refresh();
                 return;
             }
 
@@ -159,20 +151,17 @@ namespace Sample_Size_Sim
                 Invalidate(rect);
             else
                 Invalidate(); // fallback
-
-            if (refresh)
-                Refresh();
         }
 
         // Apply rules across the whole grid:
         // - If a circle's stroke is Black -> set both its fill and stroke to LightGray.
         // - If a circle's stroke is Red   -> change its stroke to Black (leave fill unchanged).
         // This method is thread-safe and does NOT invalidate/refresh the control so callers can batch UI updates.
-        public void ApplyStrokeBasedTransformations()
+        public void ShowSelectedCells()
         {
             if (InvokeRequired)
             {
-                Invoke(new Action(ApplyStrokeBasedTransformations));
+                Invoke(new Action(ShowSelectedCells));
                 return;
             }
 

@@ -55,7 +55,6 @@
             button1 = new Button();
             button2 = new Button();
             button3 = new Button();
-            button4 = new Button();
             button5 = new Button();
             button6 = new Button();
             button7 = new Button();
@@ -99,9 +98,9 @@
             PSGroup.Controls.Add(PSTextBox);
             PSGroup.Controls.Add(PSButton1);
             PSGroup.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            PSGroup.Location = new Point(189, 23);
+            PSGroup.Location = new Point(188, 12);
             PSGroup.Name = "PSGroup";
-            PSGroup.Size = new Size(110, 103);
+            PSGroup.Size = new Size(110, 94);
             PSGroup.TabIndex = 2;
             PSGroup.TabStop = false;
             PSGroup.Text = "Population Size";
@@ -127,9 +126,9 @@
             MEGroup.Controls.Add(METextBox);
             MEGroup.Controls.Add(MEButton1);
             MEGroup.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            MEGroup.Location = new Point(315, 23);
+            MEGroup.Location = new Point(314, 12);
             MEGroup.Name = "MEGroup";
-            MEGroup.Size = new Size(110, 103);
+            MEGroup.Size = new Size(110, 94);
             MEGroup.TabIndex = 3;
             MEGroup.TabStop = false;
             MEGroup.Text = "Margin of Error";
@@ -197,9 +196,9 @@
             FGroup.Controls.Add(CochranButton);
             FGroup.Controls.Add(SlovinButton);
             FGroup.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            FGroup.Location = new Point(63, 23);
+            FGroup.Location = new Point(62, 12);
             FGroup.Name = "FGroup";
-            FGroup.Size = new Size(110, 103);
+            FGroup.Size = new Size(110, 94);
             FGroup.TabIndex = 4;
             FGroup.TabStop = false;
             FGroup.Text = "Formula";
@@ -238,9 +237,9 @@
             ZSGroupBox.Controls.Add(ZSTextBox);
             ZSGroupBox.Controls.Add(ZSButton1);
             ZSGroupBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ZSGroupBox.Location = new Point(442, 23);
+            ZSGroupBox.Location = new Point(441, 12);
             ZSGroupBox.Name = "ZSGroupBox";
-            ZSGroupBox.Size = new Size(110, 103);
+            ZSGroupBox.Size = new Size(110, 94);
             ZSGroupBox.TabIndex = 5;
             ZSGroupBox.TabStop = false;
             ZSGroupBox.Text = "Z Score";
@@ -307,7 +306,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(468, 104);
+            label1.Location = new Point(466, 79);
             label1.Name = "label1";
             label1.Size = new Size(15, 15);
             label1.TabIndex = 6;
@@ -320,9 +319,9 @@
             NPGroupBox.Controls.Add(NPTextBox);
             NPGroupBox.Controls.Add(NPButton1);
             NPGroupBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            NPGroupBox.Location = new Point(570, 23);
+            NPGroupBox.Location = new Point(569, 12);
             NPGroupBox.Name = "NPGroupBox";
-            NPGroupBox.Size = new Size(151, 103);
+            NPGroupBox.Size = new Size(151, 94);
             NPGroupBox.TabIndex = 7;
             NPGroupBox.TabStop = false;
             NPGroupBox.Text = "Population Proportion";
@@ -373,7 +372,7 @@
             button1.TabIndex = 8;
             button1.Text = "Simple Random";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += B1_Click;
+            button1.Click += SimpleRandom;
             // 
             // button2
             // 
@@ -393,17 +392,7 @@
             button3.TabIndex = 11;
             button3.Text = "Systematic";
             button3.UseVisualStyleBackColor = true;
-            button3.Click += B3_Click;
-            // 
-            // button4
-            // 
-            button4.Enabled = false;
-            button4.Location = new Point(570, 236);
-            button4.Name = "button4";
-            button4.Size = new Size(75, 23);
-            button4.TabIndex = 10;
-            button4.Text = "button4";
-            button4.UseVisualStyleBackColor = true;
+            button3.Click += Systematic;
             // 
             // button5
             // 
@@ -413,7 +402,7 @@
             button5.TabIndex = 13;
             button5.Text = "Stratified Random";
             button5.UseVisualStyleBackColor = true;
-            button5.Click += button5_Click;
+            button5.Click += StratifiedRandom;
             // 
             // button6
             // 
@@ -433,7 +422,7 @@
             button7.TabIndex = 15;
             button7.Text = "Cluster";
             button7.UseVisualStyleBackColor = true;
-            button7.Click += button7_Click;
+            button7.Click += Cluster;
             // 
             // button8
             // 
@@ -470,7 +459,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(784, 561);
+            ClientSize = new Size(784, 552);
             Controls.Add(button9);
             Controls.Add(button10);
             Controls.Add(button7);
@@ -478,7 +467,6 @@
             Controls.Add(button5);
             Controls.Add(button6);
             Controls.Add(button3);
-            Controls.Add(button4);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(NPGroupBox);
@@ -490,7 +478,6 @@
             MaximizeBox = false;
             Name = "Form1";
             Text = "PR 2";
-            Load += Form1_Load;
             PSGroup.ResumeLayout(false);
             PSGroup.PerformLayout();
             MEGroup.ResumeLayout(false);
@@ -535,7 +522,6 @@
         private Button button1;
         private Button button2;
         private Button button3;
-        private Button button4;
         private Button button5;
         private Button button6;
         private Button button7;

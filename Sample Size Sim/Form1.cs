@@ -1,11 +1,3 @@
-using System;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using System.Xml;
-using System.Collections.Generic;
-using System.Threading;
-
 namespace Sample_Size_Sim
 {
     public partial class Form1 : Form
@@ -14,27 +6,28 @@ namespace Sample_Size_Sim
         Formula formula = Formula.Cochran;
 
         private GridPanel gridPanel;
-        private Random rnd = new();
+        private readonly Random rnd = new();
+        private readonly int examplePopulation = 500;
+        private readonly int exampleSample = 218;
 
         public Form1()
         {
             InitializeComponent();
-            Int32 SECOND_ITEM_INDEX = 1;
+            int SECOND_ITEM_INDEX = 1;
             MEComboBox.SelectedIndex = SECOND_ITEM_INDEX;
             ZSComboBox.SelectedIndex = SECOND_ITEM_INDEX;
 
-            // create and place the grid panel below the group boxes with a fixed 200x200 size
             Size size = new(500, 400);
             gridPanel = new GridPanel
             {
-                Location = new Point(40, 140),
+                Location = new Point(40, 130),
                 Size = size,
                 MinimumSize = size,
                 MaximumSize = size,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left,
             };
 
-            this.Controls.Add(gridPanel);
+            Controls.Add(gridPanel);
         }
 
         private void OnRadioButtonCheck(object sender, EventArgs e)
@@ -69,7 +62,7 @@ namespace Sample_Size_Sim
 
         private void UpdateFormula(object sender, EventArgs e)
         {
-            formula = this.CochranButton.Checked ? Formula.Cochran : Formula.Slovin;
+            formula = CochranButton.Checked ? Formula.Cochran : Formula.Slovin;
 
             ZSGroupBox.Enabled = formula == Formula.Cochran;
             NPGroupBox.Enabled = formula == Formula.Cochran;
@@ -92,14 +85,6 @@ namespace Sample_Size_Sim
                 e.Handled = true;
             }
         }
-
-        private void B1_Click(object sender, EventArgs e)
-        {
-            // Animate 50 unique indices set to Red
-            int[] unique = GetUniqueIndices(maxExclusive: 100, count: 50);
-            //RunAnimatedIndexAction(unique, idx => gridPanel.ChangeCircleStrokeColor(idx / 10, idx % 10, Color.Red), delayMs: 25, regenerateColors: true);
-        }
-
         private int[] GetUniqueIndices(int maxExclusive, int count)
         {
             if (maxExclusive <= 0) throw new ArgumentOutOfRangeException(nameof(maxExclusive));
@@ -111,9 +96,7 @@ namespace Sample_Size_Sim
             for (int i = indices.Length - 1; i > 0; i--)
             {
                 int j = rnd.Next(i + 1);
-                int tmp = indices[j];
-                indices[j] = indices[i];
-                indices[i] = tmp;
+                (indices[i], indices[j]) = (indices[j], indices[i]);
             }
 
             if (count == maxExclusive) return indices;
@@ -122,54 +105,80 @@ namespace Sample_Size_Sim
             return result;
         }
 
-        private void B3_Click(object sender, EventArgs e)
+        private async void SimpleRandom(object sender, EventArgs e)
         {
-            // Animate all even indices to Red (skip odds)
-            IEnumerable<int> evens = Enumerable.Range(0, 100).Where(i => i % 2 == 0);
-            //RunAnimatedIndexAction(evens, idx => gridPanel.ChangeCircleStrokeColor(idx / 10, idx % 10, Color.Red), delayMs: 25, regenerateColors: true);
-        }
-
-        private async void button5_Click(object sender, EventArgs e)
-        {
-            // Phase 1: set fills (first 50 Blue, next 50 Green) with small delay
-            await RunAnimatedIndexActionAsync(Enumerable.Range(0, 500),
-                idx =>
+            int[] unique = GetUniqueIndices(examplePopulation, exampleSample);
+            await RunAnimationAsync(unique, idx =>
                 {
-                    if (idx < 250)
-                        gridPanel.ChangeCircleColor(idx / 25, idx % 25, Color.Blue);
-                    else
-                        gridPanel.ChangeCircleColor(idx / 25, idx % 25, Color.Green);
-                },
-                delayMs: 1, regenerateColors: true, applyTransformations: false);
-
-
-            // Phase 2: pick unique indices within each half and set strokes to Red
-            int[] blueUnique = GetUniqueIndices(maxExclusive: 250, count: 109);
-            int[] greenUnique = GetUniqueIndices(maxExclusive: 250, count: 109);
-
-            await RunAnimatedIndexActionAsync(blueUnique, idx => gridPanel.ChangeCircleStrokeColor(idx / 25, idx % 25, Color.Red), delayMs: 5, regenerateColors: false, applyTransformations: false);
-            await RunAnimatedIndexActionAsync(greenUnique.Select(x => x + 250), idx => gridPanel.ChangeCircleStrokeColor(idx / 25, idx % 25, Color.Red), delayMs: 5, regenerateColors: false, applyTransformations: true);
+                    gridPanel.SetCircleStrokeColor(idx / 25, idx % 25, Color.Red);
+                }, 1, true);
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private async void Systematic(object sender, EventArgs e)
         {
-            // Animate indices 0..24 and 50..74 to Red
-            IEnumerable<int> selection = Enumerable.Range(0, 25).Concat(Enumerable.Range(50, 25));
-            //RunAnimatedIndexAction(selection, idx => gridPanel.ChangeCircleStrokeColor(idx / 10, idx % 10, Color.Red), delayMs: 25, regenerateColors: true);
+            IEnumerable<int> evens = Enumerable.Range(0, examplePopulation).Where(i => i % 2 == 0);
+            await RunAnimationAsync(evens, idx =>
+                {
+                    gridPanel.SetCircleStrokeColor(idx / 25, idx % 25, Color.Red);
+                }, 1, regenerateColors: true);
         }
 
-        // Generalized helper to run an animated sequence of per-index actions.
-        // - indices: sequence of circle indices (0..99)
-        // - action: what to do for each index (row/col can be computed from idx)
-        // - delayMs: milliseconds to sleep after each update
-        // - regenerateColors: if true call RegenerateColors() and initial Refresh()
-        // - applyTransformations: if true call ApplyStrokeBasedTransformations() and final Refresh()
-        private async Task RunAnimatedIndexActionAsync(IEnumerable<int> indices, Action<int> action, int delayMs = 25, bool regenerateColors = true, bool applyTransformations = true)
+        private async void StratifiedRandom(object sender, EventArgs e)
+        {
+            await RunAnimationAsync(Enumerable.Range(0, examplePopulation), idx =>
+                {
+                    if (idx < examplePopulation / 2)
+                        gridPanel.SetCircleColor(idx / 25, idx % 25, Color.Blue);
+                    else
+                        gridPanel.SetCircleColor(idx / 25, idx % 25, Color.Green);
+                },
+                0, true, false);
+
+
+            int[] blueUnique = GetUniqueIndices(examplePopulation / 2, exampleSample / 2);
+            int[] greenUnique = GetUniqueIndices(examplePopulation / 2, exampleSample / 2);
+
+            await RunAnimationAsync(blueUnique, idx =>
+                {
+                    gridPanel.SetCircleStrokeColor(idx / 25, idx % 25, Color.Red);
+                }, 1, false, false);
+            await RunAnimationAsync(greenUnique.Select(x => x + 250), idx =>
+                {
+                    gridPanel.SetCircleStrokeColor(idx / 25, idx % 25, Color.Red);
+                }, 1, false, true);
+        }
+
+        private async void Cluster(object sender, EventArgs e)
+        {
+            IEnumerable<int> selection = Enumerable
+                .Range(0, examplePopulation / 4)
+                .Concat(Enumerable.Range(examplePopulation / 2, examplePopulation / 4));
+            await RunAnimationAsync(selection, idx =>
+            {
+                gridPanel.SetCircleStrokeColor(idx / 25, idx % 25, Color.Red);
+            }, 1, true);
+        }
+
+        /// <summary>
+        /// Generalized helper function to run an animated sequence of actions on grid cells.
+        /// </summary>
+        /// <param name="indices">sequence of circle indices (0..499)</param>
+        /// <param name="action">what to do for each index (row/col can be computed from idx)</param>
+        /// <param name="delayMs">milliseconds to sleep after each update</param>
+        /// <param name="regenerateColors">if true call RegenerateColors() and initial Refresh()</param>
+        /// <param name="showSelectedCells">if true call ShowSelectedCells() and final Refresh()</param>
+        private async Task RunAnimationAsync(
+            IEnumerable<int> indices,
+            Action<int> action,
+            int delayMs = 5,
+            bool regenerateColors = true,
+            bool showSelectedCells = true
+        )
         {
             if (regenerateColors)
             {
                 gridPanel.RegenerateColors();
-                gridPanel.Refresh(); // initial full redraw
+                gridPanel.Refresh();
             }
 
             await Task.Delay(500); // brief pause before starting
@@ -178,24 +187,19 @@ namespace Sample_Size_Sim
             {
                 action(idx);
 
-                // Invalidate only the affected cell; allow the UI thread to paint it.
+                // Invalidate only the affected cell
                 int row = idx / 25;
                 int col = idx % 25;
-                gridPanel.InvalidateCell(row, col, refresh: false);
+                gridPanel.InvalidateCell(row, col);
 
                 await Task.Delay(Math.Max(0, delayMs));
             }
 
-            if (applyTransformations)
+            if (showSelectedCells)
             {
-                gridPanel.ApplyStrokeBasedTransformations();
+                gridPanel.ShowSelectedCells();
                 gridPanel.Refresh();
             }
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
