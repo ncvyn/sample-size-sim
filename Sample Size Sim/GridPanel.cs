@@ -69,14 +69,12 @@ namespace Sample_Size_Sim
             }
         }
 
-        // Public API to re-randomize colors if you want to call it later.
         public void RegenerateColors()
         {
             GenerateColors();
         }
 
         // Change a single circle's fill color without triggering a repaint.
-        // Call Invalidate()/Refresh() externally once all updates are applied.
         public void SetCircleColor(int row, int col, Color color)
         {
             if (row < 0 || row >= rows) throw new ArgumentOutOfRangeException(nameof(row));
@@ -89,11 +87,8 @@ namespace Sample_Size_Sim
             }
 
             cellColors[row, col] = color;
-
-            // NOTE: Intentionally do NOT call Invalidate here so callers can batch updates.
         }
 
-        // Change a single circle's stroke (outline) color without triggering a repaint.
         public void SetCircleStrokeColor(int row, int col, Color color)
         {
             if (row < 0 || row >= rows) throw new ArgumentOutOfRangeException(nameof(row));
@@ -145,7 +140,6 @@ namespace Sample_Size_Sim
             int x = col * cellW + (cellW - diameter) / 2;
             int y = row * cellH + (cellH - diameter) / 2;
 
-            // Add padding to include stroke thickness and some anti-aliasing margin.
             int pad = 4; // covers 2.5f pen width and a small margin
             var rect = new Rectangle(x - pad, y - pad, diameter + pad * 2, diameter + pad * 2);
             rect = Rectangle.Intersect(rect, this.ClientRectangle);
@@ -156,10 +150,6 @@ namespace Sample_Size_Sim
                 Invalidate(); // fallback
         }
 
-        // Apply rules across the whole grid:
-        // - If a circle's stroke is Black -> set both its fill and stroke to LightGray.
-        // - If a circle's stroke is Red   -> change its stroke to Black (leave fill unchanged).
-        // This method is thread-safe and does NOT invalidate/refresh the control so callers can batch UI updates.
         public void ShowSelectedCells()
         {
             if (InvokeRequired)
