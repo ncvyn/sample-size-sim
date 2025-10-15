@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             PSTextBox = new TextBox();
             PSButton1 = new RadioButton();
             PSGroup = new GroupBox();
@@ -52,20 +53,34 @@
             NPButton2 = new RadioButton();
             NPTextBox = new TextBox();
             NPButton1 = new RadioButton();
+            SSButton = new Button();
+            groupBox1 = new GroupBox();
+            SSTextBox = new TextBox();
+            splitContainer1 = new SplitContainer();
+            groupBox2 = new GroupBox();
+            PlayButton = new Button();
+            RB9 = new RadioButton();
+            label3 = new Label();
+            RB8 = new RadioButton();
+            RB7 = new RadioButton();
+            RB6 = new RadioButton();
+            RB5 = new RadioButton();
+            label2 = new Label();
+            RB4 = new RadioButton();
+            RB3 = new RadioButton();
+            RB2 = new RadioButton();
+            RB1 = new RadioButton();
             button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button5 = new Button();
-            button6 = new Button();
-            button7 = new Button();
-            button8 = new Button();
-            button9 = new Button();
-            button10 = new Button();
+            DescriptionLabel = new Label();
             PSGroup.SuspendLayout();
             MEGroup.SuspendLayout();
             FGroup.SuspendLayout();
             ZSGroupBox.SuspendLayout();
             NPGroupBox.SuspendLayout();
+            groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // PSTextBox
@@ -98,9 +113,9 @@
             PSGroup.Controls.Add(PSTextBox);
             PSGroup.Controls.Add(PSButton1);
             PSGroup.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            PSGroup.Location = new Point(188, 12);
+            PSGroup.Location = new Point(146, 12);
             PSGroup.Name = "PSGroup";
-            PSGroup.Size = new Size(110, 94);
+            PSGroup.Size = new Size(96, 95);
             PSGroup.TabIndex = 2;
             PSGroup.TabStop = false;
             PSGroup.Text = "Population Size";
@@ -126,9 +141,9 @@
             MEGroup.Controls.Add(METextBox);
             MEGroup.Controls.Add(MEButton1);
             MEGroup.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            MEGroup.Location = new Point(314, 12);
+            MEGroup.Location = new Point(256, 12);
             MEGroup.Name = "MEGroup";
-            MEGroup.Size = new Size(110, 94);
+            MEGroup.Size = new Size(96, 95);
             MEGroup.TabIndex = 3;
             MEGroup.TabStop = false;
             MEGroup.Text = "Margin of Error";
@@ -196,9 +211,9 @@
             FGroup.Controls.Add(CochranButton);
             FGroup.Controls.Add(SlovinButton);
             FGroup.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            FGroup.Location = new Point(62, 12);
+            FGroup.Location = new Point(36, 12);
             FGroup.Name = "FGroup";
-            FGroup.Size = new Size(110, 94);
+            FGroup.Size = new Size(96, 95);
             FGroup.TabIndex = 4;
             FGroup.TabStop = false;
             FGroup.Text = "Formula";
@@ -237,9 +252,9 @@
             ZSGroupBox.Controls.Add(ZSTextBox);
             ZSGroupBox.Controls.Add(ZSButton1);
             ZSGroupBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ZSGroupBox.Location = new Point(441, 12);
+            ZSGroupBox.Location = new Point(366, 12);
             ZSGroupBox.Name = "ZSGroupBox";
-            ZSGroupBox.Size = new Size(110, 94);
+            ZSGroupBox.Size = new Size(96, 95);
             ZSGroupBox.TabIndex = 5;
             ZSGroupBox.TabStop = false;
             ZSGroupBox.Text = "Z Score";
@@ -306,7 +321,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(466, 79);
+            label1.Location = new Point(391, 79);
             label1.Name = "label1";
             label1.Size = new Size(15, 15);
             label1.TabIndex = 6;
@@ -319,9 +334,9 @@
             NPGroupBox.Controls.Add(NPTextBox);
             NPGroupBox.Controls.Add(NPButton1);
             NPGroupBox.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            NPGroupBox.Location = new Point(569, 12);
+            NPGroupBox.Location = new Point(476, 12);
             NPGroupBox.Name = "NPGroupBox";
-            NPGroupBox.Size = new Size(151, 94);
+            NPGroupBox.Size = new Size(96, 95);
             NPGroupBox.TabIndex = 7;
             NPGroupBox.TabStop = false;
             NPGroupBox.Text = "Population Proportion";
@@ -364,120 +379,253 @@
             NPButton1.UseVisualStyleBackColor = true;
             NPButton1.CheckedChanged += OnRadioButtonCheck;
             // 
+            // SSButton
+            // 
+            SSButton.Location = new Point(13, 62);
+            SSButton.Name = "SSButton";
+            SSButton.Size = new Size(68, 23);
+            SSButton.TabIndex = 9;
+            SSButton.Text = "=";
+            SSButton.UseVisualStyleBackColor = true;
+            SSButton.Click += SSButton_Click;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(SSTextBox);
+            groupBox1.Controls.Add(SSButton);
+            groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox1.Location = new Point(586, 12);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(96, 95);
+            groupBox1.TabIndex = 18;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Sample Size";
+            // 
+            // SSTextBox
+            // 
+            SSTextBox.BackColor = SystemColors.Window;
+            SSTextBox.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SSTextBox.Location = new Point(13, 21);
+            SSTextBox.MaxLength = 5;
+            SSTextBox.Name = "SSTextBox";
+            SSTextBox.ReadOnly = true;
+            SSTextBox.Size = new Size(68, 35);
+            SSTextBox.TabIndex = 1;
+            SSTextBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // splitContainer1
+            // 
+            splitContainer1.Location = new Point(0, 0);
+            splitContainer1.Name = "splitContainer1";
+            splitContainer1.Size = new Size(150, 100);
+            splitContainer1.TabIndex = 0;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(PlayButton);
+            groupBox2.Controls.Add(RB9);
+            groupBox2.Controls.Add(label3);
+            groupBox2.Controls.Add(RB8);
+            groupBox2.Controls.Add(RB7);
+            groupBox2.Controls.Add(RB6);
+            groupBox2.Controls.Add(RB5);
+            groupBox2.Controls.Add(label2);
+            groupBox2.Controls.Add(RB4);
+            groupBox2.Controls.Add(RB3);
+            groupBox2.Controls.Add(RB2);
+            groupBox2.Controls.Add(RB1);
+            groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox2.Location = new Point(574, 124);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(176, 306);
+            groupBox2.TabIndex = 19;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Sampling Techniques";
+            // 
+            // PlayButton
+            // 
+            PlayButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            PlayButton.Location = new Point(121, 132);
+            PlayButton.Name = "PlayButton";
+            PlayButton.Size = new Size(39, 36);
+            PlayButton.TabIndex = 13;
+            PlayButton.Text = " ▶";
+            PlayButton.UseVisualStyleBackColor = true;
+            PlayButton.Click += PlayAnimation;
+            // 
+            // RB9
+            // 
+            RB9.AutoSize = true;
+            RB9.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            RB9.Location = new Point(11, 269);
+            RB9.Name = "RB9";
+            RB9.Size = new Size(77, 19);
+            RB9.TabIndex = 12;
+            RB9.Text = "Purposive";
+            RB9.UseVisualStyleBackColor = true;
+            RB9.CheckedChanged += DoUpdateDescription;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Location = new Point(9, 153);
+            label3.Name = "label3";
+            label3.Size = new Size(92, 15);
+            label3.TabIndex = 11;
+            label3.Text = "Non-probability";
+            // 
+            // RB8
+            // 
+            RB8.AutoSize = true;
+            RB8.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            RB8.Location = new Point(11, 245);
+            RB8.Name = "RB8";
+            RB8.Size = new Size(58, 19);
+            RB8.TabIndex = 10;
+            RB8.Text = "Quota";
+            RB8.UseVisualStyleBackColor = true;
+            RB8.CheckedChanged += DoUpdateDescription;
+            // 
+            // RB7
+            // 
+            RB7.AutoSize = true;
+            RB7.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            RB7.Location = new Point(11, 221);
+            RB7.Name = "RB7";
+            RB7.Size = new Size(73, 19);
+            RB7.TabIndex = 9;
+            RB7.Text = "Snowball";
+            RB7.UseVisualStyleBackColor = true;
+            RB7.CheckedChanged += DoUpdateDescription;
+            // 
+            // RB6
+            // 
+            RB6.AutoSize = true;
+            RB6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            RB6.Location = new Point(11, 197);
+            RB6.Name = "RB6";
+            RB6.Size = new Size(75, 19);
+            RB6.TabIndex = 8;
+            RB6.Text = "Voluntary";
+            RB6.UseVisualStyleBackColor = true;
+            RB6.CheckedChanged += DoUpdateDescription;
+            // 
+            // RB5
+            // 
+            RB5.AutoSize = true;
+            RB5.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            RB5.Location = new Point(11, 173);
+            RB5.Name = "RB5";
+            RB5.Size = new Size(94, 19);
+            RB5.TabIndex = 7;
+            RB5.Text = "Convenience";
+            RB5.UseVisualStyleBackColor = true;
+            RB5.CheckedChanged += DoUpdateDescription;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(9, 24);
+            label2.Name = "label2";
+            label2.Size = new Size(64, 15);
+            label2.TabIndex = 6;
+            label2.Text = "Probability";
+            // 
+            // RB4
+            // 
+            RB4.AutoSize = true;
+            RB4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            RB4.Location = new Point(11, 116);
+            RB4.Name = "RB4";
+            RB4.Size = new Size(62, 19);
+            RB4.TabIndex = 5;
+            RB4.Text = "Cluster";
+            RB4.UseVisualStyleBackColor = true;
+            RB4.CheckedChanged += DoUpdateDescription;
+            // 
+            // RB3
+            // 
+            RB3.AutoSize = true;
+            RB3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            RB3.Location = new Point(11, 92);
+            RB3.Name = "RB3";
+            RB3.Size = new Size(120, 19);
+            RB3.TabIndex = 4;
+            RB3.Text = "Stratified Random";
+            RB3.UseVisualStyleBackColor = true;
+            RB3.CheckedChanged += DoUpdateDescription;
+            // 
+            // RB2
+            // 
+            RB2.AutoSize = true;
+            RB2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            RB2.Location = new Point(11, 68);
+            RB2.Name = "RB2";
+            RB2.Size = new Size(82, 19);
+            RB2.TabIndex = 3;
+            RB2.Text = "Systematic";
+            RB2.UseVisualStyleBackColor = true;
+            RB2.CheckedChanged += DoUpdateDescription;
+            // 
+            // RB1
+            // 
+            RB1.AutoSize = true;
+            RB1.Checked = true;
+            RB1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            RB1.Location = new Point(11, 44);
+            RB1.Name = "RB1";
+            RB1.Size = new Size(109, 19);
+            RB1.TabIndex = 1;
+            RB1.TabStop = true;
+            RB1.Text = "Simple Random";
+            RB1.UseVisualStyleBackColor = true;
+            RB1.CheckedChanged += DoUpdateDescription;
+            // 
             // button1
             // 
-            button1.Location = new Point(376, 207);
+            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.Location = new Point(700, 13);
             button1.Name = "button1";
-            button1.Size = new Size(122, 23);
-            button1.TabIndex = 8;
-            button1.Text = "Simple Random";
+            button1.Size = new Size(63, 23);
+            button1.TabIndex = 20;
+            button1.Text = "Credits";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += SimpleRandom;
+            button1.Click += Credits;
             // 
-            // button2
+            // DescriptionLabel
             // 
-            button2.Enabled = false;
-            button2.Location = new Point(570, 207);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 9;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            button3.Location = new Point(376, 236);
-            button3.Name = "button3";
-            button3.Size = new Size(122, 23);
-            button3.TabIndex = 11;
-            button3.Text = "Systematic";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += Systematic;
-            // 
-            // button5
-            // 
-            button5.Location = new Point(376, 265);
-            button5.Name = "button5";
-            button5.Size = new Size(122, 23);
-            button5.TabIndex = 13;
-            button5.Text = "Stratified Random";
-            button5.UseVisualStyleBackColor = true;
-            button5.Click += StratifiedRandom;
-            // 
-            // button6
-            // 
-            button6.Enabled = false;
-            button6.Location = new Point(570, 265);
-            button6.Name = "button6";
-            button6.Size = new Size(75, 23);
-            button6.TabIndex = 12;
-            button6.Text = "button6";
-            button6.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            button7.Location = new Point(376, 294);
-            button7.Name = "button7";
-            button7.Size = new Size(122, 23);
-            button7.TabIndex = 15;
-            button7.Text = "Cluster";
-            button7.UseVisualStyleBackColor = true;
-            button7.Click += Cluster;
-            // 
-            // button8
-            // 
-            button8.Enabled = false;
-            button8.Location = new Point(571, 294);
-            button8.Name = "button8";
-            button8.Size = new Size(75, 23);
-            button8.TabIndex = 14;
-            button8.Text = "button8";
-            button8.UseVisualStyleBackColor = true;
-            // 
-            // button9
-            // 
-            button9.Enabled = false;
-            button9.Location = new Point(570, 323);
-            button9.Name = "button9";
-            button9.Size = new Size(75, 23);
-            button9.TabIndex = 17;
-            button9.Text = "button9";
-            button9.UseVisualStyleBackColor = true;
-            // 
-            // button10
-            // 
-            button10.Enabled = false;
-            button10.Location = new Point(570, 352);
-            button10.Name = "button10";
-            button10.Size = new Size(75, 23);
-            button10.TabIndex = 16;
-            button10.Text = "button10";
-            button10.UseVisualStyleBackColor = true;
+            DescriptionLabel.AutoSize = true;
+            DescriptionLabel.Location = new Point(583, 444);
+            DescriptionLabel.MaximumSize = new Size(160, 0);
+            DescriptionLabel.Name = "DescriptionLabel";
+            DescriptionLabel.Size = new Size(74, 15);
+            DescriptionLabel.TabIndex = 21;
+            DescriptionLabel.Text = "(description)";
+            DescriptionLabel.TextAlign = ContentAlignment.TopCenter;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(784, 552);
-            Controls.Add(button9);
-            Controls.Add(button10);
-            Controls.Add(button7);
-            Controls.Add(button8);
-            Controls.Add(button5);
-            Controls.Add(button6);
-            Controls.Add(button3);
-            Controls.Add(button2);
+            ClientSize = new Size(784, 561);
+            Controls.Add(DescriptionLabel);
             Controls.Add(button1);
+            Controls.Add(groupBox2);
+            Controls.Add(groupBox1);
             Controls.Add(NPGroupBox);
             Controls.Add(label1);
             Controls.Add(ZSGroupBox);
             Controls.Add(FGroup);
             Controls.Add(MEGroup);
             Controls.Add(PSGroup);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "Form1";
-            Text = "PR 2";
+            Text = "Samplifier";
             PSGroup.ResumeLayout(false);
             PSGroup.PerformLayout();
             MEGroup.ResumeLayout(false);
@@ -488,6 +636,12 @@
             ZSGroupBox.PerformLayout();
             NPGroupBox.ResumeLayout(false);
             NPGroupBox.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -506,7 +660,6 @@
         private Label PercentLabel;
         private GroupBox FGroup;
         private RadioButton CochranButton;
-        private TextBox textBox1;
         private RadioButton SlovinButton;
         private GroupBox ZSGroupBox;
         private Label PlusMinLabel1;
@@ -519,14 +672,24 @@
         private RadioButton NPButton2;
         private TextBox NPTextBox;
         private RadioButton NPButton1;
+        private Button SSButton;
+        private GroupBox groupBox1;
+        private TextBox SSTextBox;
+        private SplitContainer splitContainer1;
+        private GroupBox groupBox2;
+        private RadioButton RB2;
+        private RadioButton RB1;
+        private Label label2;
+        private RadioButton RB4;
+        private RadioButton RB3;
+        private RadioButton RB9;
+        private Label label3;
+        private RadioButton RB8;
+        private RadioButton RB7;
+        private RadioButton RB6;
+        private RadioButton RB5;
+        private Button PlayButton;
         private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button5;
-        private Button button6;
-        private Button button7;
-        private Button button8;
-        private Button button9;
-        private Button button10;
+        private Label DescriptionLabel;
     }
 }

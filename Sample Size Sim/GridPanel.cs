@@ -1,4 +1,7 @@
+using System;
+using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 namespace Sample_Size_Sim
 {
@@ -24,8 +27,8 @@ namespace Sample_Size_Sim
             {
                 for (int c = 0; c < cols; c++)
                 {
-                    cellColors[r, c] = (rng.Next(2) == 0) ? Color.Blue : Color.Green;
-                    strokeColors[r, c] = Color.Black; // default stroke
+                    cellColors[r, c] = Color.LightGray;
+                    strokeColors[r, c] = rng.Next(2) == 0 ? Color.Blue : Color.Green;
                 }
             }
 
@@ -107,7 +110,7 @@ namespace Sample_Size_Sim
 
         /// <summary>
         /// Invalidate the painted region for a single cell (circle).
-        /// Thread-safe and optionally forces an immediate Refresh.
+        /// Thread-safe.
         /// </summary>
         /// <param name="row">Row index of the cell (0-based).</param>
         /// <param name="col">Column index of the cell (0-based).</param>
@@ -169,16 +172,16 @@ namespace Sample_Size_Sim
             {
                 for (int c = 0; c < cols; c++)
                 {
-                    var currentStroke = strokeColors[r, c];
+                    var currentFill = cellColors[r, c];
 
-                    if (currentStroke.ToArgb() == Color.Black.ToArgb())
+                    if (currentFill.ToArgb() == Color.LightGray.ToArgb())
                     {
-                        cellColors[r, c] = Color.LightGray;
                         strokeColors[r, c] = Color.LightGray;
+                        cellColors[r, c] = Color.LightGray;
                     }
-                    else if (currentStroke.ToArgb() == Color.Red.ToArgb())
+                    else if (currentFill.ToArgb() == Color.Red.ToArgb())
                     {
-                        strokeColors[r, c] = Color.Black;
+                        cellColors[r, c] = Color.White;
                     }
                 }
             }
